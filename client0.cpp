@@ -31,9 +31,6 @@ int myid;
 
 
 
-//extern struct addrinfo *loginServerInfo;
-
-
 //read username file
 void readUserFile0()
 {
@@ -43,8 +40,7 @@ void readUserFile0()
 		cout<<"Cannot Open File\n";
 		return;
 	}
-	//while(j<3) //get values of username and password and store it in local variables
-	//{
+
 		i=0;
 		read.getline(fileRead, 100);
 		while(fileRead[i]!=' ')
@@ -60,23 +56,7 @@ void readUserFile0()
 			i++;
 			if (m!=strlen(fileRead))
 			m++;
-		}//end of pass while
-		//j++;
-	//}//end of while(j<3)
-
-		/*for (j=0;j < 3; j++)
-		//{
-			for (i=0;i < 10; i++)
-			{
-				cout<<user[i];
-			}
-			cout << " ";
-			for (i=0;i < 10; i++)
-			{
-				cout<<pass[i];
-			}
-			cout<<endl;
-		//}*/
+		}
 
 }//end of read file()
 
@@ -95,7 +75,7 @@ void readUserText0()
 		cout<<"Cannot Open File\n";
 		return;
 	}
-	//while(j<3) //get values of username and password and store it in local variables
+	
 
 		readText.getline(fileRead, 100);
 		for (i=0;i<strlen(fileRead);i++){
@@ -129,7 +109,6 @@ void makeloginMessage()
 	strcat(message,pass);
 	strcat(message," ");
 
-	//cout<<message<<endl;
 }
 void setupTCP()
 {
@@ -151,7 +130,7 @@ void setupTCP()
 	memset(&hints, 0, sizeof hints);
 	hints.ai_family = AF_INET;//IPv4
 	hints.ai_socktype = SOCK_STREAM;//TCP
-	//hints.ai_flags = AI_PASSIVE;//fill in IP
+	
 	struct sockaddr_in my_addr;
 
 	//cout<<"start"<<endl;
@@ -182,16 +161,16 @@ void setupTCP()
       exit(0);
     }
 	cout<<"Phase 1: User has TCP port: "<<ntohs(my_addr.sin_port)<<" and IP address: "<<inet_ntoa(my_addr.sin_addr)<<endl;
-	//cout<<strlen(message)<<endl;
+	
 	int len = strlen(message);
 	int bytes_sent = send(sockDescp1, message, len, 0);
-	//cout<<"bytes sent: "<<bytes_sent<<endl;
+	
 
 	if ((num = recv(sockDescp1, buf, sizeof(buf), 0) == -1))
 		{
 			cout<<"recv error\n";
 		}
-	//cout<<buf<<endl;
+	
 	char *messagerecv = strtok(buf,"#");
 	if (strcmp(messagerecv, "Accepted") ==0)
 	{
@@ -210,7 +189,7 @@ void setupTCP()
 	memset(&hints, 0, sizeof hints);
 	hints.ai_family = AF_INET;//IPv4
 	hints.ai_socktype = SOCK_DGRAM;//UDP
-	//hints.ai_flags = AI_PASSIVE;//fill in IP
+	
 
 	if ((status = getaddrinfo("localhost", "3868", &hints, &UDPsend0)) != 0)
 	{
@@ -230,9 +209,7 @@ void setupTCP()
 		perror("Error occured:");
 		exit(0);
 	}
-	//cout<<"socket made sleeping before sending"<<endl;
- 	//sleep(10);
-	
+		
 	memset(&hints, 0, sizeof hints);
 	hints.ai_family = AF_INET;//IPv4
 	hints.ai_socktype = SOCK_DGRAM;//TCP
@@ -302,9 +279,6 @@ void setupTCP()
 int main(int id)
 {
 	
-	//cout<<myid<<endl;
-
-
 	readUserFile0();
 	readUserText0();
 
